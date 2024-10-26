@@ -1,0 +1,434 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /ALU_tb/alu
+=== Design Unit: work.ALU_4_bit
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         6         6         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /ALU_tb/alu
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File ALU.v
+------------------------------------CASE Branch------------------------------------
+    21                                        29     Count coming in to CASE
+    22              1                         10           	Add:            Alu_out = A + B;
+    23              1                          9           	Sub:            Alu_out = A - B;
+    24              1                          4           	Not_A:          Alu_out = ~A;
+    25              1                          6           	ReductionOR_B:  Alu_out = |B;
+Branch totals: 4 hits of 4 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    32                                        30     Count coming in to IF
+    32              1                          4           if (reset)
+    34              1                         26           else
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       8         8         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /ALU_tb/alu --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File ALU.v
+    1                                                module ALU_4_bit (
+    2                                                    input  clk,
+    3                                                    input  reset,
+    4                                                    input  [1:0] Opcode,	// The opcode
+    5                                                    input  signed [3:0] A,	// Input data A in 2's complement
+    6                                                    input  signed [3:0] B,	// Input data B in 2's complement
+    7                                                
+    8                                                    output reg signed [4:0] C // ALU output in 2's complement
+    9                                                
+    10                                               		  );
+    11                                               
+    12                                                  reg signed [4:0] 	    Alu_out; // ALU output in 2's complement
+    13                                               
+    14                                                  localparam 		    Add	           = 2'b00; // A + B
+    15                                                  localparam 		    Sub	           = 2'b01; // A - B
+    16                                                  localparam 		    Not_A	         = 2'b10; // ~A
+    17                                                  localparam 		    ReductionOR_B  = 2'b11; // |B
+    18                                               
+    19                                                  // Do the operation
+    20              1                         29        always @* begin
+    21                                                     case (Opcode)
+    22              1                         10           	Add:            Alu_out = A + B;
+    23              1                          9           	Sub:            Alu_out = A - B;
+    24              1                          4           	Not_A:          Alu_out = ~A;
+    25              1                          6           	ReductionOR_B:  Alu_out = |B;
+    26                                                       default:  Alu_out = 5'b0;
+    27                                                     endcase
+    28                                                  end // always @ *
+    29                                               
+    30                                                  // Register output C
+    31              1                         30        always @(posedge clk or posedge reset) begin
+    32                                                     if (reset)
+    33              1                          4     	     C <= 5'b0;
+    34                                                     else
+    35              1                         26     	     C<= Alu_out;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         44        44         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /ALU_tb/alu --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[0-3]           1           1      100.00 
+                                      Alu_out[4-0]           1           1      100.00 
+                                            B[0-3]           1           1      100.00 
+                                            C[4-0]           1           1      100.00 
+                                       Opcode[0-1]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                             reset           1           1      100.00 
+
+Total Node Count     =         22 
+Toggled Node Count   =         22 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (44 of 44 bins)
+
+=================================================================================
+=== Instance: /ALU_tb
+=== Design Unit: work.ALU_tb
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       5         5         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/ALU_tb/a_reset      ALU_tb.sv(219)                     0          1
+/ALU_tb/ADD          ALU_tb.sv(238)                     0          1
+/ALU_tb/SUB          ALU_tb.sv(239)                     0          1
+/ALU_tb/Inversion    ALU_tb.sv(240)                     0          1
+/ALU_tb/OR           ALU_tb.sv(241)                     0          1
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /ALU_tb
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File ALU_tb.sv
+------------------------------------IF Branch------------------------------------
+    218                                       28     Count coming in to IF
+    218             1                          4      if(reset)
+                                              24     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+
+Directive Coverage:
+    Directives                       4         4         0   100.00%
+
+DIRECTIVE COVERAGE:
+--------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Hits Status    
+                                         Unit   UnitType                                     
+--------------------------------------------------------------------------------------------
+/ALU_tb/ADD_cv                           ALU_tb Verilog  SVA  ALU_tb.sv(243)    10 Covered   
+/ALU_tb/SUB_cv                           ALU_tb Verilog  SVA  ALU_tb.sv(244)     9 Covered   
+/ALU_tb/Inversion_cv                     ALU_tb Verilog  SVA  ALU_tb.sv(245)     4 Covered   
+/ALU_tb/OR_cv                            ALU_tb Verilog  SVA  ALU_tb.sv(246)     6 Covered   
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                     122       122         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /ALU_tb --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File ALU_tb.sv
+    1                                                module ALU_tb();
+    2                                                //   Signals Declrations     //
+    3                                                logic clk,reset;
+    4                                                logic [1:0]Opcode;
+    5                                                logic signed [3:0] A,B;
+    6                                                logic signed [4:0] C;
+    7                                                
+    8                                                //   Local Parameters    //
+    9                                                localparam T = 4;
+    10                                               localparam MAXneg=7;
+    11                                               localparam MAXNEG=-8;
+    12                                               localparam Zero =0 ;
+    13                                               
+    14                                               // DUT Instantiation    //
+    15                                               ALU_4_bit alu(
+    16                                                       .clk(clk),
+    17                                                       .reset(reset),
+    18                                                       .Opcode(Opcode),
+    19                                                       .A(A),
+    20                                                       .B(B),
+    21                                                       .C(C)
+    22                                                       );
+    23                                               
+    24                                               //   Clock Generation     //
+    25                                               always 
+    26                                               begin
+    27              1                         32     clk=1'b0;
+    28              1                         32     #(T/2);
+    29              1                         31     clk=1'b1;
+    30              1                         31     #(T/2);
+    31                                               end
+    32                                               
+    33                                               //	Stimulus Generation		//	
+    34                                               initial
+    35                                               begin
+    36                                               
+    37                                               // ALU_reset_1 //
+    38              1                          1     reset=1'b1;
+    39                                               // ALU_Addition_2 //
+    40              1                          1     @(negedge clk);
+    41              1                          1     #1;
+    42              1                          1     reset=1'b0;
+    43              1                          1     Opcode=2'b00;
+    44              1                          1     A=MAXneg;
+    45              1                          1     B=MAXneg;
+    46                                               
+    47                                               // ALU_Addition_3 //
+    48              1                          1     @(negedge clk);
+    49              1                          1     #1;
+    50              1                          1     A=MAXNEG;
+    51              1                          1     B=MAXNEG;
+    52                                               
+    53                                               // ALU_Addition_4 //
+    54              1                          1     @(negedge clk);
+    55              1                          1     #1;
+    56              1                          1     A=Zero;
+    57              1                          1     B=Zero;
+    58                                               
+    59                                               // ALU_Addition_5 //
+    60              1                          1     @(negedge clk);
+    61              1                          1     #1;
+    62              1                          1     A=MAXneg;
+    63              1                          1     B=MAXNEG;
+    64                                               
+    65                                               // ALU_Addition_6 //
+    66              1                          1     @(negedge clk);
+    67              1                          1     #1;
+    68              1                          1     A=MAXneg;
+    69              1                          1     B=Zero;
+    70                                               
+    71                                               // ALU_Addition_7 //
+    72              1                          1     @(negedge clk);
+    73              1                          1     #1;
+    74              1                          1     A=MAXNEG;
+    75              1                          1     B=MAXneg;
+    76                                               
+    77                                               // ALU_Addition_8 //
+    78              1                          1     @(negedge clk);
+    79              1                          1     #1;
+    80              1                          1     A=MAXNEG;
+    81              1                          1     B=Zero;
+    82                                               
+    83                                               // ALU_Addition_9 //
+    84              1                          1     @(negedge clk);
+    85              1                          1     #1;
+    86              1                          1     A=Zero;
+    87              1                          1     B=MAXneg;
+    88                                               
+    89                                               // ALU_Addition_10 //
+    90              1                          1     @(negedge clk);
+    91              1                          1     #1;
+    92              1                          1     A=Zero;
+    93              1                          1     B=MAXNEG;
+    94                                               
+    95                                               // ALU_Subtraction_11 //
+    96              1                          1     @(negedge clk);
+    97              1                          1     #1;
+    98              1                          1     Opcode=2'b01;
+    99              1                          1     A=MAXneg;
+    100             1                          1     B=MAXneg;
+    101                                              
+    102                                              // ALU_Subtraction_12 //
+    103             1                          1     @(negedge clk);
+    104             1                          1     #1;
+    105             1                          1     A=MAXNEG;
+    106             1                          1     B=MAXNEG;
+    107                                              
+    108                                              // ALU_Subtraction_13 //
+    109             1                          1     @(negedge clk);
+    110             1                          1     #1;
+    111             1                          1     A=Zero;
+    112             1                          1     B=Zero;
+    113                                              
+    114                                              // ALU_Subtraction_14 //
+    115             1                          1     @(negedge clk);
+    116             1                          1     #1;
+    117             1                          1     A=MAXneg;
+    118             1                          1     B=MAXNEG;
+    119                                              
+    120                                              // ALU_Subtraction_15 //
+    121             1                          1     @(negedge clk);
+    122             1                          1     #1;
+    123             1                          1     A=MAXneg;
+    124             1                          1     B=Zero;
+    125                                              
+    126                                              // ALU_Subtraction_16 //
+    127             1                          1     @(negedge clk);
+    128             1                          1     #1;
+    129             1                          1     A=MAXNEG;
+    130             1                          1     B=MAXneg;
+    131                                              
+    132                                              // ALU_Subtraction_17 //
+    133             1                          1     @(negedge clk);
+    134             1                          1     #1;
+    135             1                          1     A=MAXNEG;
+    136             1                          1     B=Zero;
+    137                                              
+    138                                              // ALU_Subtraction_18 //
+    139             1                          1     @(negedge clk);
+    140             1                          1     #1;
+    141             1                          1     A=Zero;
+    142             1                          1     B=MAXneg;
+    143                                              
+    144                                              // ALU_Subtraction_19 //
+    145             1                          1     @(negedge clk);
+    146             1                          1     #1;
+    147             1                          1     A=Zero;
+    148             1                          1     B=MAXNEG;
+    149                                              
+    150                                              // ALU_Inversion_20 //
+    151             1                          1     @(negedge clk);
+    152             1                          1     #1;
+    153             1                          1     Opcode=2'b10;
+    154             1                          1     A=Zero;
+    155                                              
+    156                                              // ALU_Inversion_21 //
+    157             1                          1     @(negedge clk);
+    158             1                          1     #1;
+    159             1                          1     A=4'b1111;
+    160                                              
+    161                                              // ALU_Inversion_22  //
+    162             1                          1     @(negedge clk);
+    163             1                          1     #1;
+    164             1                          1     A=MAXneg;
+    165                                              
+    166                                              // ALU_Inversion_23  //
+    167             1                          1     @(negedge clk);
+    168             1                          1     #1;
+    169             1                          1     A=MAXNEG;
+    170                                              
+    171                                              // ALU_Rediction_OR_24 //
+    172             1                          1     @(negedge clk);
+    173             1                          1     #1;
+    174             1                          1     Opcode=2'b11;
+    175             1                          1     B=MAXNEG;
+    176                                              
+    177                                              // ALU_Rediction_OR_25 //
+    178             1                          1     @(negedge clk);
+    179             1                          1     #1;
+    180             1                          1     B=MAXneg;
+    181                                              
+    182                                              // ALU_Rediction_OR_26 //
+    183             1                          1     @(negedge clk);
+    184             1                          1     #1;
+    185             1                          1     B=4'b1100;
+    186                                              
+    187                                              
+    188                                              // ALU_Rediction_OR_27 //
+    189             1                          1     @(negedge clk);
+    190             1                          1     #1;
+    191             1                          1     B=4'b0001;
+    192                                              
+    193                                              
+    194                                              // ALU_Rediction_OR_28 //
+    195             1                          1     @(negedge clk);
+    196             1                          1     #1;
+    197             1                          1     B=Zero;
+    198                                              
+    199                                              
+    200                                              // ALU_Rediction_OR_29 //
+    201             1                          1     @(negedge clk);
+    202             1                          1     #1;
+    203             1                          1     B=4'b1111;
+    204                                              
+    205             1                          1     @(negedge clk);
+    206             1                          1     #1;
+    207             1                          1     reset=1'b1;
+    208             1                          1     @(negedge clk);
+    209             1                          1     #1;
+    210             1                          1     reset=1'b0;
+    211             1                          1     Opcode=2'b00;
+    212             1                          1     #T;
+    213             1                          1     $stop;
+    214                                              
+    215                                              end   
+    216                                              
+    217             1                         28     always_comb begin
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         34        34         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /ALU_tb --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                            A[3-0]           1           1      100.00 
+                                            B[3-0]           1           1      100.00 
+                                            C[4-0]           1           1      100.00 
+                                       Opcode[1-0]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                             reset           1           1      100.00 
+
+Total Node Count     =         17 
+Toggled Node Count   =         17 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (34 of 34 bins)
+
+
+DIRECTIVE COVERAGE:
+--------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Hits Status    
+                                         Unit   UnitType                                     
+--------------------------------------------------------------------------------------------
+/ALU_tb/ADD_cv                           ALU_tb Verilog  SVA  ALU_tb.sv(243)    10 Covered   
+/ALU_tb/SUB_cv                           ALU_tb Verilog  SVA  ALU_tb.sv(244)     9 Covered   
+/ALU_tb/Inversion_cv                     ALU_tb Verilog  SVA  ALU_tb.sv(245)     4 Covered   
+/ALU_tb/OR_cv                            ALU_tb Verilog  SVA  ALU_tb.sv(246)     6 Covered   
+
+TOTAL DIRECTIVE COVERAGE: 100.00%  COVERS: 4
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/ALU_tb/a_reset      ALU_tb.sv(219)                     0          1
+/ALU_tb/ADD          ALU_tb.sv(238)                     0          1
+/ALU_tb/SUB          ALU_tb.sv(239)                     0          1
+/ALU_tb/Inversion    ALU_tb.sv(240)                     0          1
+/ALU_tb/OR           ALU_tb.sv(241)                     0          1
+
+Total Coverage By Instance (filtered view): 100.00%
+
